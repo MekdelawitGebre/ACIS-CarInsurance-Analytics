@@ -1,0 +1,43 @@
+name: Python CI
+
+on:
+  push:
+    branches: [ main, task-1, task-2, task-3, task-4 ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: 3.11
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Run Task Scripts
+      run: |
+        echo "Running CI for branch $GITHUB_REF"
+        if [[ "$GITHUB_REF" == *"task-1"* ]]; then
+          echo "Running EDA pipeline (Task 1)..."
+          python src/eda/eda_analysis.py
+        elif [[ "$GITHUB_REF" == *"task-2"* ]]; then
+          echo "Running DVC status check (Task 2)..."
+          dvc status
+        elif [[ "$GITHUB_REF" == *"task-3"* ]]; then
+          echo "Running Hypothesis Testing scripts (Task 3)..."
+          python src/stats/ab_testing.py
+        elif [[ "$GITHUB_REF" == *"task-4"* ]]; then
+          echo "Running Predictive Modeling scripts (Task 4)..."
+          python src/modeling/regression.py
+        else
+          echo "No specific task script for this branch."
+        fi
