@@ -1,0 +1,10 @@
+=== Predictive Pricing and Risk Modeling Report ===
+
+           Model         RMSE       R2
+LinearRegression 34976.142465 0.239340
+    RandomForest 37242.568881 0.137565
+         XGBoost 37283.655533 0.135661
+
+Best Model: LinearRegression (RMSE=34976.14, R²=0.24)
+
+SHAP feature importance identifies the most influential risk factors driving claim severity.
