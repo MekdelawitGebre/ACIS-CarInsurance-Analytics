@@ -22,4 +22,4 @@ data/dvc_storage/
 *.dvc
 
 
-data/models/
+models/
